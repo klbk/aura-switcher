@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="uk">
-<head>
+<!DOCTYPE html>
+<html lang="uk" dir="ltr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AURA Switcher</title><link rel="icon" href="icon.svg">
+<title>AURA Switcher — безкоштовна альтернатива Punto Switcher для Mac і Windows</title><meta name="description" content="Автоматичне перемикання розкладки клавіатури: «ghbdtn» → «привіт» після пробілу. Українська альтернатива Punto Switcher і Caramba Switcher. Безкоштовно, відкритий код, macOS і Windows."><link rel="icon" href="icon.svg">
 <style>
 :root { --bg:#07080f; --card:rgba(255,255,255,.04); --line:rgba(255,255,255,.09); --text:#f4f5fb; --muted:#9aa0b8; --blue:#3b8cff; --yellow:#ffd500; }
 * { box-sizing:border-box; margin:0; }
@@ -104,6 +104,7 @@ kbd { font:inherit; font-size:13px; padding:1px 7px; border-radius:6px; border:1
 
 footer { padding:64px 0 48px; color:var(--muted); font-size:14px; }
 footer .wrap { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.alt { max-width:820px; margin:0 auto; text-align:center; } .alt h2 { font-size:clamp(24px,3vw,32px); letter-spacing:-.02em; margin-bottom:12px; } .alt p { color:var(--muted); }
 .flag { display:inline-block; width:22px; height:15px; border-radius:3px; background:linear-gradient(#0057b7 50%,#ffd500 50%); vertical-align:-2px; margin-right:8px; }
 footer strong { color:var(--text); }
 
@@ -113,74 +114,80 @@ footer strong { color:var(--text); }
 }
 @media (prefers-reduced-motion:reduce) { .aurora i { animation:none; } }
 </style>
-</head>
+<link rel="canonical" href="https://klbk.github.io/aura-switcher/"><link rel="alternate" hreflang="uk" href="https://klbk.github.io/aura-switcher/uk/"><link rel="alternate" hreflang="en" href="https://klbk.github.io/aura-switcher/en/"><link rel="alternate" hreflang="pl" href="https://klbk.github.io/aura-switcher/pl/"><link rel="alternate" hreflang="de" href="https://klbk.github.io/aura-switcher/de/"><link rel="alternate" hreflang="es" href="https://klbk.github.io/aura-switcher/es/"><link rel="alternate" hreflang="fr" href="https://klbk.github.io/aura-switcher/fr/"><link rel="alternate" hreflang="it" href="https://klbk.github.io/aura-switcher/it/"><link rel="alternate" hreflang="pt" href="https://klbk.github.io/aura-switcher/pt/"><link rel="alternate" hreflang="tr" href="https://klbk.github.io/aura-switcher/tr/"><link rel="alternate" hreflang="nl" href="https://klbk.github.io/aura-switcher/nl/"><link rel="alternate" hreflang="cs" href="https://klbk.github.io/aura-switcher/cs/"><link rel="alternate" hreflang="sv" href="https://klbk.github.io/aura-switcher/sv/"><link rel="alternate" hreflang="fi" href="https://klbk.github.io/aura-switcher/fi/"><link rel="alternate" hreflang="ro" href="https://klbk.github.io/aura-switcher/ro/"><link rel="alternate" hreflang="hu" href="https://klbk.github.io/aura-switcher/hu/"><link rel="alternate" hreflang="el" href="https://klbk.github.io/aura-switcher/el/"><link rel="alternate" hreflang="bg" href="https://klbk.github.io/aura-switcher/bg/"><link rel="alternate" hreflang="he" href="https://klbk.github.io/aura-switcher/he/"><link rel="alternate" hreflang="ar" href="https://klbk.github.io/aura-switcher/ar/"><link rel="alternate" hreflang="hi" href="https://klbk.github.io/aura-switcher/hi/"><link rel="alternate" hreflang="ko" href="https://klbk.github.io/aura-switcher/ko/"><link rel="alternate" hreflang="x-default" href="https://klbk.github.io/aura-switcher/"><meta property="og:type" content="website"><meta property="og:url" content="https://klbk.github.io/aura-switcher/"><meta property="og:title" content="AURA Switcher — безкоштовна альтернатива Punto Switcher для Mac і Windows"><meta property="og:description" content="Автоматичне перемикання розкладки клавіатури: «ghbdtn» → «привіт» після пробілу. Українська альтернатива Punto Switcher і Caramba Switcher. Безкоштовно, відкритий код, macOS і Windows."></head>
 <body>
 <nav><div class="wrap">
   <div class="brand"><img src="icon.svg" alt="">AURA Switcher</div>
   <div class="navr">
-    <div class="langsel" id="langSel"><button class="langbtn" aria-haspopup="listbox"><span aria-hidden="true">🌐</span><span id="langName"></span></button><div class="langlist" role="listbox"></div></div>
+    <div class="langsel" id="langSel"><button class="langbtn" aria-haspopup="listbox"><span aria-hidden="true">🌐</span><span id="langName">Українська</span></button><div class="langlist" role="listbox"><button data-l="uk" role="option" class="on">Українська</button><button data-l="en" role="option">English</button><button data-l="pl" role="option">Polski</button><button data-l="de" role="option">Deutsch</button><button data-l="es" role="option">Español</button><button data-l="fr" role="option">Français</button><button data-l="it" role="option">Italiano</button><button data-l="pt" role="option">Português</button><button data-l="tr" role="option">Türkçe</button><button data-l="nl" role="option">Nederlands</button><button data-l="cs" role="option">Čeština</button><button data-l="sv" role="option">Svenska</button><button data-l="fi" role="option">Suomi</button><button data-l="ro" role="option">Română</button><button data-l="hu" role="option">Magyar</button><button data-l="el" role="option">Ελληνικά</button><button data-l="bg" role="option">Български</button><button data-l="he" role="option">עברית</button><button data-l="ar" role="option">العربية</button><button data-l="hi" role="option">हिन्दी</button><button data-l="ko" role="option">한국어</button></div></div>
     <a class="btn coffee sm" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener" title="Donatello">☕</a>
-    <a class="btn light sm" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip" data-t="dlMac"></a>
+    <a class="btn light sm" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip" data-t="dlMac">Завантажити для Mac</a>
   </div>
 </div></nav>
 
 <header class="hero">
   <div class="aurora"><i></i><i></i><i></i></div>
   <div class="wrap">
-    <span class="badge"><b></b><span data-t="badge"></span></span>
-    <h1 data-t="h1"></h1>
-    <p class="lead" data-t="lead"></p>
+    <span class="badge"><b></b><span data-t="badge">Бета 0.4 · безкоштовно · без реєстрації</span></span>
+    <h1 data-t="h1">Пишіть.<br>Розкладку <span class="hl">AURA</span> виправить сама</h1>
+    <p class="lead" data-t="lead">Набрали «ghbdtn» замість «привіт»? AURA помітить і виправить одразу після пробілу. Для macOS і Windows.</p>
     <div class="cta">
-      <a class="btn light" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip"><span data-t="dlMac"></span></a>
-      <a class="btn ghost" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-x64.zip">⊞ <span data-t="dlWin"></span></a>
-      <a class="btn coffee" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate"></span></a>
+      <a class="btn light" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip"><span data-t="dlMac">Завантажити для Mac</span></a>
+      <a class="btn ghost" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-x64.zip">⊞ <span data-t="dlWin">Для Windows</span></a>
+      <a class="btn coffee" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Підтримати</span></a>
     </div>
     <div class="window" aria-hidden="true">
       <div class="menubar"><div class="dots"><i></i><i></i><i></i></div><span class="chip" id="demoChip">EN</span></div>
-      <div class="screen"><div id="demoText"></div><div id="demoStatus"></div></div>
+      <div class="screen"><div id="demoText"><span class="wrong">ghbdtn</span><span class="caret"></span></div><div id="demoStatus">Не та розкладка…</div></div>
     </div>
   </div>
 </header>
 
 <section><div class="wrap">
-  <h2 class="h2" data-t="fTitle"></h2>
+  <h2 class="h2" data-t="fTitle">Все, що потрібно. Нічого зайвого</h2>
   <div class="bento">
-    <div class="card c1 glow"><div class="vis"><span class="key b">ghbdtn</span><span class="arrow">→</span><span class="key y">привіт</span></div><h3 data-t="f1h"></h3><p data-t="f1p"></p></div>
-    <div class="card c2"><div class="vis"><span class="key">⇧ Shift</span><span class="key">⇧ Shift</span></div><h3 data-t="f2h"></h3><p data-t="f2p"></p></div>
-    <div class="card c3"><h3 data-t="f3h"></h3><p data-t="f3p"></p></div>
-    <div class="card c4"><h3 data-t="f4h"></h3><p data-t="f4p"></p></div>
-    <div class="card c5"><h3 data-t="f6h"></h3><p data-t="f6p"></p></div>
-    <div class="card c6"><div><h3 data-t="f5h"></h3><p data-t="f5p"></p></div><div class="vis" style="margin:0;height:auto"><span class="key y">УК</span><span class="key">EN</span><span class="key b">DE</span><span class="key">PL</span><span class="key">ΕΛ</span></div></div>
+    <div class="card c1 glow"><div class="vis"><span class="key b">ghbdtn</span><span class="arrow">→</span><span class="key y">привіт</span></div><h3 data-t="f1h">Автовиправлення</h3><p data-t="f1p">Набрали слово не в тій розкладці — після пробілу воно стає правильним, а розкладка перемикається.</p></div>
+    <div class="card c2"><div class="vis"><span class="key">⇧ Shift</span><span class="key">⇧ Shift</span></div><h3 data-t="f2h">Подвійний Shift</h3><p data-t="f2p">Двічі натисніть <kbd>Shift</kbd> — останнє слово або виділений текст перекладеться в іншу розкладку.</p></div>
+    <div class="card c3"><h3 data-t="f3h">Мова для програми</h3><p data-t="f3p">Terminal — завжди EN, Telegram — УК. А в програмах-винятках AURA просто мовчить.</p></div>
+    <div class="card c4"><h3 data-t="f4h">Приватно</h3><p data-t="f4p">Нічого не надсилає в інтернет. Усе працює на вашому пристрої.</p></div>
+    <div class="card c5"><h3 data-t="f6h">Легка</h3><p data-t="f6p">Менше 1 МБ, не гальмує набір і не підвішує систему.</p></div>
+    <div class="card c6"><div><h3 data-t="f5h">22 мови</h3><p data-t="f5p">Українська, англійська, німецька, польська, грецька… Усі розкладки вашої системи.</p></div><div class="vis" style="margin:0;height:auto"><span class="key y">УК</span><span class="key">EN</span><span class="key b">DE</span><span class="key">PL</span><span class="key">ΕΛ</span></div></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <h2 class="h2" data-t="pTitle"></h2>
+  <div class="card alt"><h2 data-t="altH">Українська альтернатива Punto Switcher</h2><p data-t="altP">Шукаєте заміну Punto Switcher чи Caramba Switcher? AURA Switcher так само автоматично перемикає розкладку й виправляє текст, набраний не тією мовою, — але це українська розробка з відкритим кодом: безкоштовно, без реклами, нічого не надсилає в інтернет. Працює на macOS і Windows, з українською, англійською та ще 19 мовами.</p></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2 class="h2" data-t="pTitle">Mac і Windows — однакові звички</h2>
   <div class="plat">
-    <div class="card"><div class="os">macOS</div><ul data-t="pMac"></ul></div>
-    <div class="card"><div class="os">⊞ Windows</div><ul data-t="pWin"></ul></div>
+    <div class="card"><div class="os">macOS</div><ul data-t="pMac"><li>Apple Silicon і Intel</li><li>Код мови в рядку меню: EN, УК, РУ…</li><li>macOS 13 і новіші</li></ul></div>
+    <div class="card"><div class="os">⊞ Windows</div><ul data-t="pWin"><li>x64 і ARM64, без встановлення</li><li>Код мови в треї</li><li>Ті самі клавіші, що й на Mac</li></ul></div>
   </div>
 </div></section>
 
 <section><div class="wrap">
-  <h2 class="h2" data-t="iTitle"></h2>
+  <h2 class="h2" data-t="iTitle">Запуск за хвилину</h2>
   <div class="steps">
-    <div class="card"><h3 data-t="s1h"></h3><p data-t="s1p"></p></div>
-    <div class="card"><h3 data-t="s2h"></h3><p data-t="s2p"></p></div>
-    <div class="card"><h3 data-t="s3h"></h3><p data-t="s3p"></p></div>
+    <div class="card"><h3 data-t="s1h">Завантажте</h3><p data-t="s1p">Розпакуйте архів. На Mac перетягніть AURA у «Програми», на Windows просто запустіть AURA.exe.</p></div>
+    <div class="card"><h3 data-t="s2h">Дозвольте</h3><p data-t="s2p">На Mac: Системні параметри → Конфіденційність і безпека → Універсальний доступ → AURA.</p></div>
+    <div class="card"><h3 data-t="s3h">Пишіть</h3><p data-t="s3p">Код мови з'явиться вгорі (Mac) або в треї (Windows). Далі AURA працює сама.</p></div>
   </div>
   <div class="final">
-    <h2 data-t="ctaH"></h2><p data-t="ctaP"></p>
-    <div class="cta"><a class="btn light" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip"><span data-t="dlMac"></span></a><a class="btn ghost" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-x64.zip">⊞ <span data-t="dlWin"></span></a><a class="btn coffee" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate"></span></a></div>
-    <p class="support"><span data-t="supportP"></span> <a href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate"></span></a></p>
+    <h2 data-t="ctaH">Спробуйте AURA сьогодні</h2><p data-t="ctaP">Безкоштовна бета для macOS і Windows.</p>
+    <div class="cta"><a class="btn light" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip"><span data-t="dlMac">Завантажити для Mac</span></a><a class="btn ghost" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-x64.zip">⊞ <span data-t="dlWin">Для Windows</span></a><a class="btn coffee" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Підтримати</span></a></div>
+    <p class="support"><span data-t="supportP">Подобається AURA Switcher? Підтримайте розробку чашкою кави.</span> <a href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Підтримати</span></a></p>
   </div>
 </div></section>
 
 <footer><div class="wrap">
-  <div><span class="flag"></span><strong data-t="made"></strong></div>
-  <div><span data-t="foot"></span> · <a href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate"></span></a> · <a href="mailto:auraswitcher@gmail.com">✉︎ <span data-t="contact"></span></a> · <a href="https://github.com/klbk/aura-switcher-app" target="_blank" rel="noopener">GitHub</a></div>
+  <div><span class="flag"></span><strong data-t="made">Зроблено в Україні</strong></div>
+  <div><span data-t="foot">AURA — щоб думати про текст, а не про розкладку.</span> · <a href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Підтримати</span></a> · <a href="mailto:auraswitcher@gmail.com">✉︎ <span data-t="contact">Написати нам</span></a> · <a href="https://github.com/klbk/aura-switcher-app" target="_blank" rel="noopener">GitHub</a></div>
 </div></footer>
 <script src="i18n-more.js"></script>
+<script src="seo.js"></script>
 <script src="shared.js"></script>
-</body>
-</html>
+
+
+</body></html>
