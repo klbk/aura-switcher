@@ -1,5 +1,5 @@
-# AURA — website
+# AURA Switcher — website
 
-Landing page of AURA, a keyboard-layout fixer for macOS and Windows. Made in Ukraine 🇺🇦
+Landing page of AURA Switcher, a keyboard-layout fixer for macOS and Windows. Made in Ukraine 🇺🇦
 
-https://klbk.github.io/aura-site/
+https://klbk.github.io/aura-switcher/ · Support: https://donatello.to/aura-switcher
