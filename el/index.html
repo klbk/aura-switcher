@@ -84,6 +84,7 @@ section { padding:110px 0 0; }
        background:linear-gradient(180deg,#2b2f44,#1b1e2d); border:1px solid rgba(255,255,255,.12); box-shadow:0 4px 0 #0e1019, 0 10px 30px rgba(0,0,0,.4); }
 .key.y { color:var(--yellow); } .key.b { color:var(--blue); }
 .arrow { color:var(--muted); font-size:24px; }
+[dir="rtl"] .arrow { transform:scaleX(-1); }
 kbd { font:inherit; font-size:13px; padding:1px 7px; border-radius:6px; border:1px solid var(--line); background:rgba(255,255,255,.06); }
 .glow::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; right:-80px; top:-80px; background:radial-gradient(var(--blue),transparent 70%); opacity:.25; }
 
@@ -163,7 +164,7 @@ footer strong { color:var(--text); }
   <h2 class="h2" data-t="pTitle">Mac και Windows — ίδιες συνήθειες</h2>
   <div class="plat">
     <div class="card"><div class="os">macOS</div><ul data-t="pMac"><li>Apple Silicon και Intel</li><li>Κωδικός γλώσσας στη γραμμή μενού: EN, ΕΛ…</li><li>macOS 13 και νεότερα</li></ul></div>
-    <div class="card"><div class="os">⊞ Windows</div><ul data-t="pWin"><li>x64 και ARM64, χωρίς εγκατάσταση</li><li>Κωδικός γλώσσας στην περιοχή ειδοποιήσεων</li><li>Τα ίδια πλήκτρα με το Mac</li></ul></div>
+    <div class="card"><div class="os">⊞ Windows</div><ul data-t="pWin"><li>x64 και <a href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-arm64.zip">ARM64</a>, χωρίς εγκατάσταση</li><li>Κωδικός γλώσσας στην περιοχή ειδοποιήσεων</li><li>Τα ίδια πλήκτρα με το Mac</li></ul></div>
   </div>
 </div></section>
 
