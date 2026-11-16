@@ -325,7 +325,7 @@ const MENU = {
 for (const k in T) { const e = MENU[k] || MENU.en; MENU_KEYS.forEach((key, i) => { if (T[k][key] === undefined) T[k][key] = e[i]; }); }
 if (typeof SEO !== "undefined") for (const k in SEO) if (T[k]) Object.assign(T[k], SEO[k]);  // seo.js: title, description, "alternative to…"
 // the language count in the texts ("21 languages") is the number of chips in the languages card
-const nLangs = document.querySelectorAll(".langs span").length;
+const nLangs = document.querySelectorAll(".langs span[data-l]").length;
 if (nLangs) for (const k in T) for (const key of ["f5h", "altP"]) if (T[k][key]) T[k][key] = T[k][key].replace(/\b21\b/, nLangs);
 if (nLangs && T.uk.altP) T.uk.altP = T.uk.altP.replace(/ще 19\b/, "ще " + (nLangs - 2));  // "Ukrainian, English and N more"
 
@@ -349,37 +349,58 @@ function setLang(l) {
   const desc = document.querySelector('meta[name="description"]'); if (desc && T[l].desc) desc.content = T[l].desc;
   document.querySelectorAll("[data-t]").forEach(e => e.innerHTML = T[l][e.dataset.t]);
   const name = document.getElementById("langName"); if (name) name.textContent = T[l].name;
-  document.querySelectorAll(".langlist button").forEach(b => b.classList.toggle("on", b.dataset.l === l));
+  const fl = document.getElementById("langFlag"); if (fl) fl.src = FLAGS + l + ".svg";
+  if (langModal) {
+    const w = LANGWORD[l] || "Language";
+    langModal.querySelector("h2").textContent = w + " · " + Object.keys(T).length;
+    langModal.querySelector(".langq").placeholder = w + "…"; langModal.querySelector(".langq").setAttribute("aria-label", w);
+    langModal.querySelectorAll(".langgrid button").forEach(b => b.classList.toggle("on", b.dataset.l === l));
+  }
 }
-// language picker popover
+// flags (Twemoji SVG, self-hosted in /flags: emoji flags show as letters on Windows)
+const FLAGS = (document.documentElement.dataset.page ? "../" : "") + "flags/";
+const flagImg = k => `<img class="flag" src="${FLAGS}${k}.svg" alt="" width="20" height="20">`;
+document.querySelectorAll(".langs span[data-l]").forEach(c => { if (!c.querySelector("img")) c.insertAdjacentHTML("afterbegin", flagImg(c.dataset.l)); });  // pre-rendered pages already have them
+// the word "Language" in each site language: the title of the picker window
+const LANGWORD = { uk:"Мова", en:"Language", pl:"Język", de:"Sprache", es:"Idioma", fr:"Langue", it:"Lingua", pt:"Idioma", tr:"Dil", nl:"Taal", cs:"Jazyk", sv:"Språk", fi:"Kieli",
+  ro:"Limbă", hu:"Nyelv", el:"Γλώσσα", bg:"Език", he:"שפה", ar:"اللغة", hi:"भाषा", ko:"언어", be:"Мова", kk:"Тіл", ky:"Тил", ka:"ენა", hy:"Լեզու", az:"Dil", sr:"Језик",
+  mk:"Јазик", sk:"Jazyk", hr:"Jezik", sl:"Jezik", lt:"Kalba", lv:"Valoda", et:"Keel", da:"Sprog", nb:"Språk", is:"Tungumál", sq:"Gjuha", fa:"زبان", vi:"Ngôn ngữ",
+  tg:"Забон", mn:"Хэл", tt:"Тел", uz:"Til", ga:"Teanga", mt:"Lingwa", cy:"Iaith", zh:"语言" };
+// language picker: a window with all languages at once
 const picker = document.getElementById("langSel");
+let langModal = null;
 if (picker) {
-  const list = picker.querySelector(".langlist");
-  // search by the language's own name or its English name / code (shown when the list is long)
+  // search by the language's own name or its English name / code
   const en = typeof Intl !== "undefined" && Intl.DisplayNames ? new Intl.DisplayNames(["en"], { type: "language" }) : null;
   const loc = typeof Intl !== "undefined" && Intl.DisplayNames ? new Intl.DisplayNames([lang, "en"], { type: "language" }) : null;  // names in the page's language too
   const nm = (d, k) => { try { return d ? d.of(k) : ""; } catch { return ""; } };
   const key = k => [T[k].name, k, nm(en, k), nm(loc, k)].join(" ").toLowerCase();
-  const many = Object.keys(T).length > 12;
-  list.innerHTML = (many ? '<input class="langq" type="search" placeholder="🔍" aria-label="Search language" autocomplete="off">' : "")
-    + Object.keys(T).map(k => `<button data-l="${k}" role="option" data-q="${key(k)}">${T[k].name}</button>`).join("") + '<div class="none" hidden>—</div>';
-  const q = list.querySelector(".langq");
-  if (q) {
-    q.onclick = e => e.stopPropagation();
-    q.oninput = () => {
-      const v = q.value.trim().toLowerCase(); let n = 0;
-      list.querySelectorAll("button").forEach(b => { const hit = !v || b.dataset.q.includes(v); b.hidden = !hit; if (hit) n++; });
-      list.querySelector(".none").hidden = n > 0;
-    };
-    q.onkeydown = e => { if (e.key === "Enter") { const b = list.querySelector("button:not([hidden])"); if (b) b.click(); } };
-  }
-  picker.querySelector(".langbtn").onclick = e => {
-    e.stopPropagation(); picker.classList.toggle("open");
-    if (q && picker.classList.contains("open") && matchMedia("(hover:hover)").matches) q.focus();
+  document.querySelectorAll(".langmodal").forEach(e => e.remove());  // pre-rendered pages already contain one
+  langModal = document.createElement("div");
+  langModal.className = "langmodal"; langModal.hidden = true;
+  langModal.innerHTML = '<div class="langbox" role="dialog" aria-modal="true"><div class="langhead"><h2></h2><button class="langx" aria-label="Close">✕</button></div>'
+    + '<input class="langq" type="search" autocomplete="off"><div class="langgrid">'
+    + Object.keys(T).map(k => `<button data-l="${k}" data-q="${key(k)}">${flagImg(k)}<span>${T[k].name}</span></button>`).join("")
+    + '</div><div class="none" hidden>—</div></div>';
+  document.body.appendChild(langModal);
+  const q = langModal.querySelector(".langq"), none = langModal.querySelector(".none");
+  const close = () => { langModal.hidden = true; document.body.classList.remove("modalopen"); };
+  const open = () => {
+    q.value = ""; q.oninput(); langModal.hidden = false; document.body.classList.add("modalopen");
+    const on = langModal.querySelector("button.on"); if (on) on.scrollIntoView({ block: "center" });
+    if (matchMedia("(hover:hover)").matches) q.focus();
   };
-  list.onclick = e => { const b = e.target.closest("button"); if (b) { localStorage.setItem("lang", b.dataset.l); location.href = (document.documentElement.dataset.page ? "../" : "") + b.dataset.l + "/"; } };
-  document.addEventListener("click", () => picker.classList.remove("open"));
-  document.addEventListener("keydown", e => { if (e.key === "Escape") picker.classList.remove("open"); });
+  q.oninput = () => {
+    const v = q.value.trim().toLowerCase(); let n = 0;
+    langModal.querySelectorAll(".langgrid button").forEach(b => { const hit = !v || b.dataset.q.includes(v); b.hidden = !hit; if (hit) n++; });
+    none.hidden = n > 0;
+  };
+  q.onkeydown = e => { if (e.key === "Enter") { const b = langModal.querySelector(".langgrid button:not([hidden])"); if (b) b.click(); } };
+  picker.querySelector(".langbtn").onclick = open;
+  langModal.querySelector(".langx").onclick = close;
+  langModal.onclick = e => { if (e.target === langModal) close(); };
+  langModal.querySelector(".langgrid").onclick = e => { const b = e.target.closest("button"); if (b) { localStorage.setItem("lang", b.dataset.l); location.href = (document.documentElement.dataset.page ? "../" : "") + b.dataset.l + "/"; } };
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !langModal.hidden) close(); });
 }
 // visitors on Windows get the Windows download first (pre-rendered pages are Mac-first)
 if (/Windows/.test(navigator.userAgent)) {
@@ -400,15 +421,6 @@ if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.p
     try { await navigator.clipboard.writeText(url); b.textContent = T[lang].phoneCopied; } catch {}
   });
 }
-// the "N languages" card: show the first 12 as chips, the rest behind "+N"
-(function () {
-  const chips = [...document.querySelectorAll(".langs span")];
-  if (chips.length <= 14) return;
-  const rest = chips.slice(12); rest.forEach(c => c.hidden = true);
-  const more = document.createElement("span"); more.className = "more"; more.textContent = "+" + rest.length;
-  more.onclick = () => { rest.forEach(c => c.hidden = false); more.remove(); };
-  chips[11].after(more);
-})();
 setLang(lang);
 
 // demo: a word typed in the wrong layout, fixed after Space — examples match the visitor's language
