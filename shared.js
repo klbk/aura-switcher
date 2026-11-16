@@ -360,7 +360,6 @@ function setLang(l) {
 // flags (Twemoji SVG, self-hosted in /flags: emoji flags show as letters on Windows)
 const FLAGS = (document.documentElement.dataset.page ? "../" : "") + "flags/";
 const flagImg = k => `<img class="flag" src="${FLAGS}${k}.svg" alt="" width="20" height="20">`;
-document.querySelectorAll(".langs span[data-l]").forEach(c => { if (!c.querySelector("img")) c.insertAdjacentHTML("afterbegin", flagImg(c.dataset.l)); });  // pre-rendered pages already have them
 // the word "Language" in each site language: the title of the picker window
 const LANGWORD = { uk:"Мова", en:"Language", pl:"Język", de:"Sprache", es:"Idioma", fr:"Langue", it:"Lingua", pt:"Idioma", tr:"Dil", nl:"Taal", cs:"Jazyk", sv:"Språk", fi:"Kieli",
   ro:"Limbă", hu:"Nyelv", el:"Γλώσσα", bg:"Език", he:"שפה", ar:"اللغة", hi:"भाषा", ko:"언어", be:"Мова", kk:"Тіл", ky:"Тил", ka:"ენა", hy:"Լեզու", az:"Dil", sr:"Језик",
