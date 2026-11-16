@@ -3,7 +3,7 @@
 const T = {
   uk: {
     name: "Українська", title: "AURA Switcher — розкладка виправляється сама",
-    badge: "Бета 0.9.9 · безкоштовно · без реєстрації",
+    badge: "Бета 0.10.0 · безкоштовно · без реєстрації",
     h1: "Пишіть.<br>Розкладку <span class=\"hl\">AURA</span> виправить сама",
     lead: "Набрали «ghbdsn» замість «привіт»? AURA помітить і виправить одразу після пробілу. Для macOS і Windows.",
     dlMac: "Завантажити для Mac", dlWin: "Для Windows",
@@ -13,21 +13,21 @@ const T = {
     f2h: "Подвійний Shift", f2p: "Двічі натисніть <kbd>Shift</kbd> — останнє слово або виділений текст перекладеться в іншу розкладку.",
     f3h: "Мова для програми", f3p: "Terminal — завжди EN, Telegram — УК. А в програмах-винятках AURA просто мовчить.",
     f4h: "Приватно", f4p: "Нічого не надсилає в інтернет. Усе працює на вашому пристрої.",
-    f5h: "21 мова", f5p: "Усі розкладки вашої системи.",
+    f5h: "Мови: 21", f5p: "Усі розкладки вашої системи.",
     f6h: "Легка", f6p: "Менше 1 МБ, не гальмує набір і не підвішує систему.",
     pTitle: "Mac і Windows — однакові звички",
     pMac: "<li>Apple Silicon і Intel</li><li>Код мови в рядку меню: EN, УК, РУ…</li><li>macOS 13 і новіші</li>",
     pWin: "<li>x64 і ARM64, без встановлення</li><li>Код мови в треї</li><li>Ті самі клавіші, що й на Mac</li>",
     iTitle: "Запуск за хвилину",
     s1h: "Завантажте", s1p: "Розпакуйте архів. На Mac перетягніть AURA у «Програми», на Windows просто запустіть AURA.exe.",
-    s2h: "Дозвольте", s2p: "На Mac: Системні параметри → Конфіденційність і безпека → Універсальний доступ → AURA.",
+    s2h: "Дозвольте", s2p: "На Mac: Системні параметри → Конфіденційність і безпека → Універсальний доступ, Моніторинг введення → AURA.",
     s3h: "Пишіть", s3p: "Код мови з'явиться вгорі (Mac) або в треї (Windows). Далі AURA працює сама.",
     ctaH: "Спробуйте AURA сьогодні", ctaP: "Безкоштовна бета для macOS і Windows.",
     made: "Зроблено в Україні", foot: "AURA — щоб думати про текст, а не про розкладку."
   },
   en: {
     name: "English", title: "AURA Switcher — your keyboard layout fixes itself",
-    badge: "Beta 0.9.9 · free · no sign-up",
+    badge: "Beta 0.10.0 · free · no sign-up",
     h1: "Just type.<br><span class=\"hl\">AURA</span> fixes the layout",
     lead: "Typed “ghbdsn” instead of “привіт”? AURA notices and fixes it right after Space. For macOS and Windows.",
     dlMac: "Download for Mac", dlWin: "For Windows",
@@ -44,14 +44,14 @@ const T = {
     pWin: "<li>x64 and ARM64, no installer</li><li>Language code in the tray</li><li>Same keys as on Mac</li>",
     iTitle: "Up and running in a minute",
     s1h: "Download", s1p: "Unzip the archive. On Mac drag AURA into Applications, on Windows just run AURA.exe.",
-    s2h: "Allow", s2p: "On Mac: System Settings → Privacy & Security → Accessibility → AURA.",
+    s2h: "Allow", s2p: "On Mac: System Settings → Privacy & Security → Accessibility, Input Monitoring → AURA.",
     s3h: "Type", s3p: "The language code appears in the menu bar (Mac) or the tray (Windows). AURA does the rest.",
     ctaH: "Try AURA today", ctaP: "Free beta for macOS and Windows.",
     made: "Made in Ukraine", foot: "AURA — think about your text, not your keyboard layout."
   },
   pl: {
     name: "Polski", title: "AURA Switcher — układ klawiatury poprawia się sam",
-    badge: "Beta 0.9.9 · za darmo · bez rejestracji",
+    badge: "Beta 0.10.0 · za darmo · bez rejestracji",
     h1: "Po prostu pisz.<br><span class=\"hl\">AURA</span> poprawi układ",
     lead: "Wpisałeś „ghbdsn” zamiast „привіт”? AURA to zauważy i poprawi zaraz po spacji. Dla macOS i Windows.",
     dlMac: "Pobierz na Maca", dlWin: "Na Windows",
@@ -68,14 +68,14 @@ const T = {
     pWin: "<li>x64 i ARM64, bez instalacji</li><li>Kod języka w zasobniku</li><li>Te same klawisze co na Macu</li>",
     iTitle: "Gotowe w minutę",
     s1h: "Pobierz", s1p: "Rozpakuj archiwum. Na Macu przeciągnij AURA do Aplikacji, na Windows po prostu uruchom AURA.exe.",
-    s2h: "Zezwól", s2p: "Na Macu: Ustawienia systemowe → Prywatność i ochrona → Dostępność → AURA.",
+    s2h: "Zezwól", s2p: "Na Macu: Ustawienia systemowe → Prywatność i ochrona → Dostępność, Monitorowanie wejścia → AURA.",
     s3h: "Pisz", s3p: "Kod języka pojawi się na pasku menu (Mac) lub w zasobniku (Windows). Resztą zajmie się AURA.",
     ctaH: "Wypróbuj AURA już dziś", ctaP: "Darmowa beta dla macOS i Windows.",
     made: "Stworzono w Ukrainie", foot: "AURA — myśl o tekście, nie o układzie klawiatury."
   },
   de: {
     name: "Deutsch", title: "AURA Switcher — das Tastaturlayout korrigiert sich selbst",
-    badge: "Beta 0.9.9 · kostenlos · ohne Anmeldung",
+    badge: "Beta 0.10.0 · kostenlos · ohne Anmeldung",
     h1: "Einfach tippen.<br><span class=\"hl\">AURA</span> korrigiert das Layout",
     lead: "„ghbdsn“ statt „привіт“ getippt? AURA bemerkt es und korrigiert es direkt nach der Leertaste. Für macOS und Windows.",
     dlMac: "Für Mac laden", dlWin: "Für Windows",
@@ -92,14 +92,14 @@ const T = {
     pWin: "<li>x64 und ARM64, ohne Installation</li><li>Sprachcode im Infobereich</li><li>Dieselben Tasten wie auf dem Mac</li>",
     iTitle: "In einer Minute startklar",
     s1h: "Laden", s1p: "Archiv entpacken. Auf dem Mac AURA in „Programme“ ziehen, unter Windows einfach AURA.exe starten.",
-    s2h: "Erlauben", s2p: "Auf dem Mac: Systemeinstellungen → Datenschutz & Sicherheit → Bedienungshilfen → AURA.",
+    s2h: "Erlauben", s2p: "Auf dem Mac: Systemeinstellungen → Datenschutz & Sicherheit → Bedienungshilfen, Eingabeüberwachung → AURA.",
     s3h: "Tippen", s3p: "Der Sprachcode erscheint in der Menüleiste (Mac) oder im Infobereich (Windows). Den Rest macht AURA.",
     ctaH: "Probiere AURA noch heute", ctaP: "Kostenlose Beta für macOS und Windows.",
     made: "Hergestellt in der Ukraine", foot: "AURA — denk an deinen Text, nicht an dein Tastaturlayout."
   },
   es: {
     name: "Español", title: "AURA Switcher — la distribución del teclado se corrige sola",
-    badge: "Beta 0.9.9 · gratis · sin registro",
+    badge: "Beta 0.10.0 · gratis · sin registro",
     h1: "Solo escribe.<br><span class=\"hl\">AURA</span> corrige la distribución",
     lead: "¿Escribiste «ghbdsn» en lugar de «привіт»? AURA lo detecta y lo corrige justo después del espacio. Para macOS y Windows.",
     dlMac: "Descargar para Mac", dlWin: "Para Windows",
@@ -116,14 +116,14 @@ const T = {
     pWin: "<li>x64 y ARM64, sin instalación</li><li>Código de idioma en la bandeja</li><li>Las mismas teclas que en Mac</li>",
     iTitle: "Listo en un minuto",
     s1h: "Descarga", s1p: "Descomprime el archivo. En Mac arrastra AURA a Aplicaciones; en Windows ejecuta AURA.exe.",
-    s2h: "Permite", s2p: "En Mac: Ajustes del Sistema → Privacidad y seguridad → Accesibilidad → AURA.",
+    s2h: "Permite", s2p: "En Mac: Ajustes del Sistema → Privacidad y seguridad → Accesibilidad, Monitorización de entrada → AURA.",
     s3h: "Escribe", s3p: "El código de idioma aparece en la barra de menús (Mac) o en la bandeja (Windows). AURA hace el resto.",
     ctaH: "Prueba AURA hoy", ctaP: "Beta gratuita para macOS y Windows.",
     made: "Hecho en Ucrania", foot: "AURA — piensa en tu texto, no en la distribución del teclado."
   },
   fr: {
     name: "Français", title: "AURA Switcher — la disposition du clavier se corrige toute seule",
-    badge: "Bêta 0.9.9 · gratuit · sans inscription",
+    badge: "Bêta 0.10.0 · gratuit · sans inscription",
     h1: "Tapez, tout simplement.<br><span class=\"hl\">AURA</span> corrige la disposition",
     lead: "Vous avez tapé « ghbdsn » au lieu de « привіт » ? AURA le remarque et corrige juste après l’espace. Pour macOS et Windows.",
     dlMac: "Télécharger pour Mac", dlWin: "Pour Windows",
@@ -140,7 +140,7 @@ const T = {
     pWin: "<li>x64 et ARM64, sans installation</li><li>Code de langue dans la zone de notification</li><li>Les mêmes touches que sur Mac</li>",
     iTitle: "Prêt en une minute",
     s1h: "Téléchargez", s1p: "Décompressez l’archive. Sur Mac, glissez AURA dans Applications ; sur Windows, lancez AURA.exe.",
-    s2h: "Autorisez", s2p: "Sur Mac : Réglages Système → Confidentialité et sécurité → Accessibilité → AURA.",
+    s2h: "Autorisez", s2p: "Sur Mac : Réglages Système → Confidentialité et sécurité → Accessibilité, Surveillance de l’entrée → AURA.",
     s3h: "Tapez", s3p: "Le code de langue apparaît dans la barre des menus (Mac) ou la zone de notification (Windows). AURA s’occupe du reste.",
     ctaH: "Essayez AURA dès aujourd’hui", ctaP: "Bêta gratuite pour macOS et Windows.",
     made: "Fabriqué en Ukraine", foot: "AURA — pensez à votre texte, pas à la disposition du clavier."
@@ -295,7 +295,7 @@ const EXTRA = {
   zh: ["把链接发给自己", "链接已复制", "它安全吗？", "安全透明", `所有源代码均托管在 ${GH} 上，任何人都可以审查代码。`, "为什么它需要键盘访问权限", "仅用于识别你输入的文本并进行纠错。软件不会保存或向任何地方发送输入内容，且应用本身无需联网。", "首次启动时提示安全警告是正常现象", "测试版尚未购买昂贵的 Apple 或 Microsoft 开发者签名证书。Mac：点击“好” → 系统设置 → 隐私与安全性 → 点击“仍要打开”。Windows：点击“更多信息” → “仍要运行”。"],
 };
 const EXTRA_KEYS = ["phoneBtn", "phoneCopied", "safeH", "safe1h", "safe1p", "safe2h", "safe2p", "safe3h", "safe3p"];
-for (const k in T) { const e = EXTRA[k] || EXTRA.en; EXTRA_KEYS.forEach((key, i) => T[k][key] = e[i]); }
+for (const k in T) { const e = EXTRA[k] || EXTRA.en; EXTRA_KEYS.forEach((key, i) => { if (T[k][key] === undefined) T[k][key] = e[i]; }); }  // a language may bring its own (i18n-more.js)
 // The app's menu, shown on the page (strings from engine.swift uiStrings)
 const MENU_KEYS = ["menabled", "mauto", "msound", "mapp", "mexclude", "mappLang", "mexclusions", "mbindings"];
 const MENU = {
@@ -322,8 +322,12 @@ const MENU = {
   ko: ["켜기", "자동 수정", "소리", "앱: ", "이 앱에서 작동 안 함", "이 앱의 언어", "예외", "언어 지정"],
   zh: ["已启用", "自动纠错", "音效", "应用： ", "不在该应用中启用", "此应用语言", "不生效应用列表", "语言绑定"],
 };
-for (const k in T) { const e = MENU[k] || MENU.en; MENU_KEYS.forEach((key, i) => T[k][key] = e[i]); }
+for (const k in T) { const e = MENU[k] || MENU.en; MENU_KEYS.forEach((key, i) => { if (T[k][key] === undefined) T[k][key] = e[i]; }); }
 if (typeof SEO !== "undefined") for (const k in SEO) if (T[k]) Object.assign(T[k], SEO[k]);  // seo.js: title, description, "alternative to…"
+// the language count in the texts ("21 languages") is the number of chips in the languages card
+const nLangs = document.querySelectorAll(".langs span").length;
+if (nLangs) for (const k in T) for (const key of ["f5h", "altP"]) if (T[k][key]) T[k][key] = T[k][key].replace(/\b21\b/, nLangs);
+if (nLangs && T.uk.altP) T.uk.altP = T.uk.altP.replace(/ще 19\b/, "ще " + (nLangs - 2));  // "Ukrainian, English and N more"
 
 function detectLang() {
   const page = document.documentElement.dataset.page;  // /<lang>/ pages show their own language
@@ -351,8 +355,28 @@ function setLang(l) {
 const picker = document.getElementById("langSel");
 if (picker) {
   const list = picker.querySelector(".langlist");
-  list.innerHTML = Object.keys(T).map(k => `<button data-l="${k}" role="option">${T[k].name}</button>`).join("");
-  picker.querySelector(".langbtn").onclick = e => { e.stopPropagation(); picker.classList.toggle("open"); };
+  // search by the language's own name or its English name / code (shown when the list is long)
+  const en = typeof Intl !== "undefined" && Intl.DisplayNames ? new Intl.DisplayNames(["en"], { type: "language" }) : null;
+  const loc = typeof Intl !== "undefined" && Intl.DisplayNames ? new Intl.DisplayNames([lang, "en"], { type: "language" }) : null;  // names in the page's language too
+  const nm = (d, k) => { try { return d ? d.of(k) : ""; } catch { return ""; } };
+  const key = k => [T[k].name, k, nm(en, k), nm(loc, k)].join(" ").toLowerCase();
+  const many = Object.keys(T).length > 12;
+  list.innerHTML = (many ? '<input class="langq" type="search" placeholder="🔍" aria-label="Search language" autocomplete="off">' : "")
+    + Object.keys(T).map(k => `<button data-l="${k}" role="option" data-q="${key(k)}">${T[k].name}</button>`).join("") + '<div class="none" hidden>—</div>';
+  const q = list.querySelector(".langq");
+  if (q) {
+    q.onclick = e => e.stopPropagation();
+    q.oninput = () => {
+      const v = q.value.trim().toLowerCase(); let n = 0;
+      list.querySelectorAll("button").forEach(b => { const hit = !v || b.dataset.q.includes(v); b.hidden = !hit; if (hit) n++; });
+      list.querySelector(".none").hidden = n > 0;
+    };
+    q.onkeydown = e => { if (e.key === "Enter") { const b = list.querySelector("button:not([hidden])"); if (b) b.click(); } };
+  }
+  picker.querySelector(".langbtn").onclick = e => {
+    e.stopPropagation(); picker.classList.toggle("open");
+    if (q && picker.classList.contains("open") && matchMedia("(hover:hover)").matches) q.focus();
+  };
   list.onclick = e => { const b = e.target.closest("button"); if (b) { localStorage.setItem("lang", b.dataset.l); location.href = (document.documentElement.dataset.page ? "../" : "") + b.dataset.l + "/"; } };
   document.addEventListener("click", () => picker.classList.remove("open"));
   document.addEventListener("keydown", e => { if (e.key === "Escape") picker.classList.remove("open"); });
@@ -376,6 +400,15 @@ if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.p
     try { await navigator.clipboard.writeText(url); b.textContent = T[lang].phoneCopied; } catch {}
   });
 }
+// the "N languages" card: show the first 12 as chips, the rest behind "+N"
+(function () {
+  const chips = [...document.querySelectorAll(".langs span")];
+  if (chips.length <= 14) return;
+  const rest = chips.slice(12); rest.forEach(c => c.hidden = true);
+  const more = document.createElement("span"); more.className = "more"; more.textContent = "+" + rest.length;
+  more.onclick = () => { rest.forEach(c => c.hidden = false); more.remove(); };
+  chips[11].after(more);
+})();
 setLang(lang);
 
 // demo: a word typed in the wrong layout, fixed after Space — examples match the visitor's language

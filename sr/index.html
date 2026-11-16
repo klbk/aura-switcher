@@ -1,0 +1,228 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="sr" data-page="sr" dir="ltr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURA Switcher — бесплатна алтернатива за Punto Switcher на Mac-у и Windows-у</title><meta name="description" content="Аутоматска промена распореда тастатуре: речи откуцане у погрешном распореду исправљају се после размака. Бесплатна алтернатива отвореног кода за Punto Switcher и Caramba Switcher, macOS и Windows."><link rel="icon" href="../icon.svg">
+<style>
+:root { --bg:#07080f; --card:rgba(255,255,255,.04); --line:rgba(255,255,255,.09); --text:#f4f5fb; --muted:#9aa0b8; --blue:#3b8cff; --yellow:#ffd500; }
+* { box-sizing:border-box; margin:0; }
+body { background:var(--bg); color:var(--text); font:16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif; -webkit-font-smoothing:antialiased; }
+html, body { overflow-x:hidden; overflow-x:clip; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+.wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
+
+/* aurora */
+.aurora { position:absolute; inset:-200px 0 auto; height:900px; pointer-events:none; z-index:0; filter:blur(90px); opacity:.35; overflow:hidden; }
+.aurora i { position:absolute; border-radius:50%; animation:drift 18s ease-in-out infinite alternate; }
+.aurora i:nth-child(1) { width:620px; height:420px; left:10%; top:120px; background:#1d4ed8; }
+.aurora i:nth-child(2) { width:520px; height:380px; right:8%; top:60px; background:#7c3aed; animation-delay:-6s; }
+.aurora i:nth-child(3) { width:420px; height:300px; left:40%; top:260px; background:#eab308; opacity:.55; animation-delay:-12s; }
+@keyframes drift { to { transform:translate(60px,40px) scale(1.15); } }
+
+nav { position:sticky; top:0; z-index:10; backdrop-filter:blur(16px); background:rgba(7,8,15,.6); border-bottom:1px solid var(--line); }
+nav .wrap { display:flex; align-items:center; justify-content:space-between; height:64px; }
+.brand { display:flex; gap:10px; align-items:center; font-weight:700; letter-spacing:.3px; }
+.brand img { width:28px; height:28px; }
+.navr { display:flex; gap:10px; align-items:center; }
+/* language picker: own popover so it always stays inside the screen */
+.langsel { position:relative; }
+.langbtn { display:flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line); color:var(--text); font:inherit; font-size:14px;
+           padding:7px 14px; border-radius:999px; cursor:pointer; }
+.langbtn::after { content:"▾"; font-size:11px; color:var(--muted); }
+.langlist { position:absolute; top:calc(100% + 8px); inset-inline-end:0; width:min(340px, calc(100vw - 32px)); max-height:min(560px, calc(100vh - 90px));
+            overflow:auto; display:none; grid-template-columns:1fr 1fr; gap:2px; padding:8px; border-radius:16px; border:1px solid var(--line);
+            background:rgba(16,18,30,.97); backdrop-filter:blur(20px); box-shadow:0 20px 60px rgba(0,0,0,.6); z-index:20; }
+.langsel.open .langlist { display:grid; }
+.langlist button { text-align:start; background:none; border:0; color:var(--muted); font:inherit; font-size:14px; padding:7px 10px; border-radius:10px; cursor:pointer; }
+.langq { grid-column:1/-1; position:sticky; top:-8px; margin:-8px -8px 4px; padding:12px 14px; border:0; border-bottom:1px solid var(--line); border-radius:16px 16px 0 0;
+         background:rgba(16,18,30,.99); color:var(--text); font:inherit; font-size:14px; outline:0; }
+.langlist .none { grid-column:1/-1; padding:10px; color:var(--muted); font-size:14px; }
+.langlist button[hidden] { display:none; }
+.langlist button:hover { background:var(--card); color:var(--text); }
+.langlist button.on { color:var(--text); background:rgba(59,140,255,.18); font-weight:600; }
+.support { margin-top:18px; font-size:15px; color:var(--muted); }
+.support a { color:var(--yellow); font-weight:600; }
+.btn { display:inline-flex; align-items:center; gap:8px; border-radius:12px; font-weight:600; padding:12px 20px; transition:transform .15s, box-shadow .15s; }
+.btn:hover { transform:translateY(-1px); }
+.btn.sm { padding:8px 14px; font-size:14px; border-radius:10px; }
+.btn.light { background:var(--text); color:var(--bg); box-shadow:0 8px 30px rgba(255,255,255,.15); }
+.btn.ghost { border:1px solid var(--line); background:var(--card); }
+.btn.coffee { border:1px solid rgba(255,213,0,.45); background:rgba(255,213,0,.08); color:var(--yellow); }
+.btn.coffee:hover { background:rgba(255,213,0,.16); box-shadow:0 8px 30px rgba(255,213,0,.15); }
+
+header.hero { position:relative; text-align:center; padding:72px 0 24px; }
+header.hero > .wrap { position:relative; z-index:1; }
+.badge { display:inline-flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); border:1px solid var(--line); background:var(--card); border-radius:999px; padding:6px 14px; }
+.badge b { width:8px; height:8px; border-radius:50%; background:var(--yellow); box-shadow:0 0 12px var(--yellow); }
+h1 { font-size:clamp(42px, 7vw, 84px); line-height:1.02; letter-spacing:-.035em; font-weight:800; margin:24px auto 0; max-width:900px;
+     background:linear-gradient(180deg,#fff 30%,#a9b0cc); -webkit-background-clip:text; background-clip:text; color:transparent; }
+h1 .hl { background:linear-gradient(90deg,var(--blue),var(--yellow)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.lead { color:var(--muted); font-size:20px; max-width:620px; margin:22px auto 34px; }
+.cta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* demo window */
+.window { position:relative; z-index:1; max-width:760px; margin:48px auto 0; border-radius:18px; border:1px solid var(--line);
+          background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)); box-shadow:0 40px 120px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.08); overflow:hidden; }
+.menubar { display:flex; justify-content:space-between; align-items:center; padding:10px 16px; border-bottom:1px solid var(--line); font-size:13px; color:var(--muted); }
+.dots { display:flex; gap:7px; } .dots i { width:12px; height:12px; border-radius:50%; background:#2a2d3d; }
+.chip { font-weight:800; font-size:12px; border-radius:6px; padding:2px 8px; background:#2a2d3d; color:#fff; transition:.25s; }
+.chip.fixed { background:var(--yellow); color:#111; box-shadow:0 0 20px rgba(255,213,0,.5); }
+.screen { padding:48px 40px 40px; text-align:start; }
+#demoText { font-size:clamp(34px,5vw,54px); font-weight:700; letter-spacing:-.02em; min-height:72px; white-space:nowrap; }
+#demoText .wrong { color:#6b7192; } #demoText .right { color:#fff; }
+.caret { display:inline-block; width:3px; height:.9em; background:var(--blue); vertical-align:-.1em; margin-left:3px; animation:blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity:0; } }
+#demoStatus { color:var(--muted); font-size:14px; margin-top:10px; min-height:22px; }
+
+section { padding:76px 0 0; }
+.h2 { font-size:clamp(30px,4vw,46px); letter-spacing:-.03em; line-height:1.1; font-weight:750; text-align:center; max-width:700px; margin:0 auto 32px; }
+
+/* bento */
+.bento { display:grid; grid-template-columns:repeat(6,1fr); gap:16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:28px; position:relative; overflow:hidden; }
+.card h3 { font-size:20px; letter-spacing:-.01em; margin-bottom:6px; }
+.card p { color:var(--muted); font-size:15px; }
+.c1 { grid-column:span 3; } .c2 { grid-column:span 3; } .c4, .c5 { grid-column:span 3; } .c6 { grid-column:span 6; } .c3 { grid-column:span 6; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.vis { height:120px; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:14px; margin-bottom:20px; }
+.key { min-width:64px; height:56px; padding:0 18px; border-radius:12px; display:grid; place-items:center; font-weight:700; font-size:18px;
+       background:linear-gradient(180deg,#2b2f44,#1b1e2d); border:1px solid rgba(255,255,255,.12); box-shadow:0 4px 0 #0e1019, 0 10px 30px rgba(0,0,0,.4); }
+.key.y { color:var(--yellow); } .key.b { color:var(--blue); }
+.arrow { color:var(--muted); font-size:24px; }
+[dir="rtl"] .arrow { transform:scaleX(-1); }
+kbd { font:inherit; font-size:13px; padding:1px 7px; border-radius:6px; border:1px solid var(--line); background:rgba(255,255,255,.06); }
+.glow::after { content:""; position:absolute; width:260px; height:260px; border-radius:50%; right:-80px; top:-80px; background:radial-gradient(var(--blue),transparent 70%); opacity:.25; }
+
+.langs { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.langs span { font-size:14px; font-weight:600; padding:6px 12px; border-radius:9px; background:linear-gradient(180deg,#2b2f44,#1b1e2d); border:1px solid rgba(255,255,255,.12); }
+.langs .more { cursor:pointer; color:var(--muted); } .langs .more:hover { color:var(--text); } .langs span[hidden] { display:none; }
+.langs .y { color:var(--yellow); } .langs .b { color:var(--blue); }
+/* the app's menu, drawn in the page language */
+.menu { flex:none; width:300px; padding:5px; border-radius:11px; font-size:13.5px; line-height:1; background:rgba(38,40,54,.92); border:1px solid rgba(255,255,255,.12);
+        box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06); }
+.menu hr { border:0; border-top:1px solid rgba(255,255,255,.1); margin:5px 10px; }
+.mi { position:relative; padding:5px 22px 5px 24px; border-radius:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#e8e9f1; }
+.mi.on::before { content:"✓"; position:absolute; inset-inline-start:8px; }
+.mi.sub::after { content:"›"; position:absolute; inset-inline-end:8px; color:var(--muted); }
+.mi.sel { background:var(--blue); color:#fff; } .mi.sel::after { color:#fff; }
+[dir="rtl"] .mi.sub::after { content:"‹"; }
+
+.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; counter-reset:s; }
+.steps .card::before { counter-increment:s; content:"0" counter(s); display:block; font-size:44px; font-weight:800; letter-spacing:-.04em; margin-bottom:12px;
+                       background:linear-gradient(90deg,var(--blue),var(--yellow)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+.final { text-align:center; padding:64px 24px; margin-top:76px; border-radius:28px; border:1px solid var(--line); position:relative; overflow:hidden;
+         background:radial-gradient(60% 120% at 50% 0%, rgba(59,140,255,.35), transparent 70%), var(--card); }
+.final h2 { font-size:clamp(32px,4.5vw,52px); letter-spacing:-.03em; }
+.final p { color:var(--muted); margin:10px 0 28px; font-size:18px; }
+
+footer { padding:64px 0 48px; color:var(--muted); font-size:14px; }
+footer .wrap { display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.alt { max-width:820px; margin:56px auto 0; text-align:center; font-size:14px; color:var(--muted); } .alt h2 { font-size:15px; font-weight:600; margin-bottom:6px; }
+.arm { margin-top:14px; font-size:13px; } .arm a { color:var(--muted); text-decoration:underline; }
+.flag { display:inline-block; width:22px; height:15px; border-radius:3px; background:linear-gradient(#0057b7 50%,#ffd500 50%); vertical-align:-2px; margin-right:8px; }
+footer strong { color:var(--text); }
+
+/* safety: plain three columns, no cards */
+.safeh { margin-top:76px; }
+.safe { max-width:760px; margin:0 auto; border-top:1px solid var(--line); }
+.safe details { border-bottom:1px solid var(--line); padding:18px 4px; }
+.safe summary { cursor:pointer; list-style:none; display:flex; justify-content:space-between; gap:16px; font-size:18px; font-weight:600; }
+.safe summary::-webkit-details-marker { display:none; }
+.safe summary::after { content:"+"; color:var(--muted); font-weight:400; font-size:22px; line-height:1; transition:transform .2s; }
+.safe details[open] summary::after { transform:rotate(45deg); }
+.safe p { color:var(--muted); font-size:15px; margin-top:10px; } .safe a { color:var(--blue); }
+/* phones: no downloads, send the link to a computer */
+.phone { display:none; }
+.phone .btn { font:inherit; font-weight:600; border:0; cursor:pointer; }
+.mobile .phone { display:block; } .mobile .arm { display:none; } .mobile .cta a:not(.coffee) { display:none; }
+.final .phone { margin-bottom:12px; }
+.pnote { color:var(--muted); font-size:16px; max-width:420px; margin:0 auto 14px; }
+.purl { color:var(--muted); font-size:14px; margin-top:10px; user-select:all; }
+@media (max-width:820px) {
+  .c1,.c2,.c3,.c4,.c5,.c6 { grid-column:span 6; } .c3 { flex-direction:column; align-items:flex-start; } .menu { width:100%; max-width:300px; }
+  .steps { grid-template-columns:1fr; } .navr .btn.light { display:none; } .brand { white-space:nowrap; } .screen { padding:32px 22px; }
+}
+@media (max-width:520px) { #langName, .navr .coffee span { display:none; } .langbtn { padding:7px 10px; } }
+@media (max-width:360px) { .brand { gap:8px; font-size:15px; } .brand img { width:24px; height:24px; } .navr { gap:6px; } }
+@media (prefers-reduced-motion:reduce) { .aurora i { animation:none; } }
+</style>
+<link rel="canonical" href="https://klbk.github.io/aura-switcher/sr/"><link rel="alternate" hreflang="uk" href="https://klbk.github.io/aura-switcher/uk/"><link rel="alternate" hreflang="en" href="https://klbk.github.io/aura-switcher/en/"><link rel="alternate" hreflang="pl" href="https://klbk.github.io/aura-switcher/pl/"><link rel="alternate" hreflang="de" href="https://klbk.github.io/aura-switcher/de/"><link rel="alternate" hreflang="es" href="https://klbk.github.io/aura-switcher/es/"><link rel="alternate" hreflang="fr" href="https://klbk.github.io/aura-switcher/fr/"><link rel="alternate" hreflang="it" href="https://klbk.github.io/aura-switcher/it/"><link rel="alternate" hreflang="pt" href="https://klbk.github.io/aura-switcher/pt/"><link rel="alternate" hreflang="tr" href="https://klbk.github.io/aura-switcher/tr/"><link rel="alternate" hreflang="nl" href="https://klbk.github.io/aura-switcher/nl/"><link rel="alternate" hreflang="cs" href="https://klbk.github.io/aura-switcher/cs/"><link rel="alternate" hreflang="sv" href="https://klbk.github.io/aura-switcher/sv/"><link rel="alternate" hreflang="fi" href="https://klbk.github.io/aura-switcher/fi/"><link rel="alternate" hreflang="ro" href="https://klbk.github.io/aura-switcher/ro/"><link rel="alternate" hreflang="hu" href="https://klbk.github.io/aura-switcher/hu/"><link rel="alternate" hreflang="el" href="https://klbk.github.io/aura-switcher/el/"><link rel="alternate" hreflang="bg" href="https://klbk.github.io/aura-switcher/bg/"><link rel="alternate" hreflang="he" href="https://klbk.github.io/aura-switcher/he/"><link rel="alternate" hreflang="ar" href="https://klbk.github.io/aura-switcher/ar/"><link rel="alternate" hreflang="hi" href="https://klbk.github.io/aura-switcher/hi/"><link rel="alternate" hreflang="ko" href="https://klbk.github.io/aura-switcher/ko/"><link rel="alternate" hreflang="zh" href="https://klbk.github.io/aura-switcher/zh/"><link rel="alternate" hreflang="be" href="https://klbk.github.io/aura-switcher/be/"><link rel="alternate" hreflang="kk" href="https://klbk.github.io/aura-switcher/kk/"><link rel="alternate" hreflang="ky" href="https://klbk.github.io/aura-switcher/ky/"><link rel="alternate" hreflang="ka" href="https://klbk.github.io/aura-switcher/ka/"><link rel="alternate" hreflang="hy" href="https://klbk.github.io/aura-switcher/hy/"><link rel="alternate" hreflang="az" href="https://klbk.github.io/aura-switcher/az/"><link rel="alternate" hreflang="sr" href="https://klbk.github.io/aura-switcher/sr/"><link rel="alternate" hreflang="mk" href="https://klbk.github.io/aura-switcher/mk/"><link rel="alternate" hreflang="sk" href="https://klbk.github.io/aura-switcher/sk/"><link rel="alternate" hreflang="hr" href="https://klbk.github.io/aura-switcher/hr/"><link rel="alternate" hreflang="sl" href="https://klbk.github.io/aura-switcher/sl/"><link rel="alternate" hreflang="lt" href="https://klbk.github.io/aura-switcher/lt/"><link rel="alternate" hreflang="lv" href="https://klbk.github.io/aura-switcher/lv/"><link rel="alternate" hreflang="et" href="https://klbk.github.io/aura-switcher/et/"><link rel="alternate" hreflang="da" href="https://klbk.github.io/aura-switcher/da/"><link rel="alternate" hreflang="nb" href="https://klbk.github.io/aura-switcher/nb/"><link rel="alternate" hreflang="is" href="https://klbk.github.io/aura-switcher/is/"><link rel="alternate" hreflang="sq" href="https://klbk.github.io/aura-switcher/sq/"><link rel="alternate" hreflang="fa" href="https://klbk.github.io/aura-switcher/fa/"><link rel="alternate" hreflang="vi" href="https://klbk.github.io/aura-switcher/vi/"><link rel="alternate" hreflang="tg" href="https://klbk.github.io/aura-switcher/tg/"><link rel="alternate" hreflang="mn" href="https://klbk.github.io/aura-switcher/mn/"><link rel="alternate" hreflang="tt" href="https://klbk.github.io/aura-switcher/tt/"><link rel="alternate" hreflang="uz" href="https://klbk.github.io/aura-switcher/uz/"><link rel="alternate" hreflang="ga" href="https://klbk.github.io/aura-switcher/ga/"><link rel="alternate" hreflang="mt" href="https://klbk.github.io/aura-switcher/mt/"><link rel="alternate" hreflang="cy" href="https://klbk.github.io/aura-switcher/cy/"><link rel="alternate" hreflang="x-default" href="https://klbk.github.io/aura-switcher/"><meta property="og:type" content="website"><meta property="og:url" content="https://klbk.github.io/aura-switcher/sr/"><meta property="og:image" content="https://klbk.github.io/aura-switcher/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta property="og:title" content="AURA Switcher — бесплатна алтернатива за Punto Switcher на Mac-у и Windows-у"><meta property="og:description" content="Аутоматска промена распореда тастатуре: речи откуцане у погрешном распореду исправљају се после размака. Бесплатна алтернатива отвореног кода за Punto Switcher и Caramba Switcher, macOS и Windows."><script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "AURA Switcher", "url": "https://klbk.github.io/aura-switcher/sr/", "description": "Аутоматска промена распореда тастатуре: речи откуцане у погрешном распореду исправљају се после размака. Бесплатна алтернатива отвореног кода за Punto Switcher и Caramba Switcher, macOS и Windows.", "inLanguage": "sr", "applicationCategory": "UtilitiesApplication", "operatingSystem": "macOS 13+, Windows 10/11", "softwareVersion": "0.10.0", "image": "https://klbk.github.io/aura-switcher/og.jpg", "downloadUrl": "https://github.com/klbk/aura-switcher/releases/latest", "license": "https://www.gnu.org/licenses/gpl-3.0.html", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script><script data-goatcounter="https://aura-switcher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head>
+<body>
+<nav><div class="wrap">
+  <div class="brand"><img src="../icon.svg" alt="">AURA Switcher</div>
+  <div class="navr">
+    <div class="langsel" id="langSel"><button class="langbtn" aria-haspopup="listbox"><span aria-hidden="true">🌐</span><span id="langName">Српски</span></button><div class="langlist" role="listbox"><input class="langq" type="search" placeholder="🔍" aria-label="Search language" autocomplete="off"><button data-l="uk" role="option" data-q="українська uk ukrainian украјински">Українська</button><button data-l="en" role="option" data-q="english en english енглески">English</button><button data-l="pl" role="option" data-q="polski pl polish пољски">Polski</button><button data-l="de" role="option" data-q="deutsch de german немачки">Deutsch</button><button data-l="es" role="option" data-q="español es spanish шпански">Español</button><button data-l="fr" role="option" data-q="français fr french француски">Français</button><button data-l="it" role="option" data-q="italiano it italian италијански">Italiano</button><button data-l="pt" role="option" data-q="português pt portuguese португалски">Português</button><button data-l="tr" role="option" data-q="türkçe tr turkish турски">Türkçe</button><button data-l="nl" role="option" data-q="nederlands nl dutch холандски">Nederlands</button><button data-l="cs" role="option" data-q="čeština cs czech чешки">Čeština</button><button data-l="sv" role="option" data-q="svenska sv swedish шведски">Svenska</button><button data-l="fi" role="option" data-q="suomi fi finnish фински">Suomi</button><button data-l="ro" role="option" data-q="română ro romanian румунски">Română</button><button data-l="hu" role="option" data-q="magyar hu hungarian мађарски">Magyar</button><button data-l="el" role="option" data-q="ελληνικά el greek грчки">Ελληνικά</button><button data-l="bg" role="option" data-q="български bg bulgarian бугарски">Български</button><button data-l="he" role="option" data-q="עברית he hebrew хебрејски">עברית</button><button data-l="ar" role="option" data-q="العربية ar arabic арапски">العربية</button><button data-l="hi" role="option" data-q="हिन्दी hi hindi хинди">हिन्दी</button><button data-l="ko" role="option" data-q="한국어 ko korean корејски">한국어</button><button data-l="zh" role="option" data-q="简体中文 zh chinese кинески">简体中文</button><button data-l="be" role="option" data-q="беларуская be belarusian белоруски">Беларуская</button><button data-l="kk" role="option" data-q="қазақша kk kazakh казашки">Қазақша</button><button data-l="ky" role="option" data-q="кыргызча ky kyrgyz киргиски">Кыргызча</button><button data-l="ka" role="option" data-q="ქართული ka georgian грузијски">ქართული</button><button data-l="hy" role="option" data-q="հայերեն hy armenian јерменски">Հայերեն</button><button data-l="az" role="option" data-q="azərbaycan az azerbaijani азербејџански">Azərbaycan</button><button data-l="sr" role="option" data-q="српски sr serbian српски" class="on">Српски</button><button data-l="mk" role="option" data-q="македонски mk macedonian македонски">Македонски</button><button data-l="sk" role="option" data-q="slovenčina sk slovak словачки">Slovenčina</button><button data-l="hr" role="option" data-q="hrvatski hr croatian хрватски">Hrvatski</button><button data-l="sl" role="option" data-q="slovenščina sl slovenian словеначки">Slovenščina</button><button data-l="lt" role="option" data-q="lietuvių lt lithuanian литвански">Lietuvių</button><button data-l="lv" role="option" data-q="latviešu lv latvian летонски">Latviešu</button><button data-l="et" role="option" data-q="eesti et estonian естонски">Eesti</button><button data-l="da" role="option" data-q="dansk da danish дански">Dansk</button><button data-l="nb" role="option" data-q="norsk bokmål nb norwegian bokmål норвешки букмол">Norsk bokmål</button><button data-l="is" role="option" data-q="íslenska is icelandic исландски">Íslenska</button><button data-l="sq" role="option" data-q="shqip sq albanian албански">Shqip</button><button data-l="fa" role="option" data-q="فارسی fa persian персијски">فارسی</button><button data-l="vi" role="option" data-q="tiếng việt vi vietnamese вијетнамски">Tiếng Việt</button><button data-l="tg" role="option" data-q="тоҷикӣ tg tajik таџички">Тоҷикӣ</button><button data-l="mn" role="option" data-q="монгол mn mongolian монголски">Монгол</button><button data-l="tt" role="option" data-q="татарча tt tatar татарски">Татарча</button><button data-l="uz" role="option" data-q="oʻzbek uz uzbek узбечки">Oʻzbek</button><button data-l="ga" role="option" data-q="gaeilge ga irish ирски">Gaeilge</button><button data-l="mt" role="option" data-q="malti mt maltese малтешки">Malti</button><button data-l="cy" role="option" data-q="cymraeg cy welsh велшки">Cymraeg</button><div class="none" hidden="">—</div></div></div>
+    <a class="btn coffee sm" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Подржите</span></a>
+    <a class="btn light sm" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip" data-t="dlMac">Преузми за Mac</a>
+  </div>
+</div></nav>
+
+<header class="hero">
+  <div class="aurora"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <span class="badge"><b></b><span data-t="badge">Бета 0.10.0 · бесплатно · без регистрације</span></span>
+    <h1 data-t="h1">Само куцајте.<br><span class="hl">AURA</span> исправља распоред</h1>
+    <p class="lead" data-t="lead">Откуцали сте «ghbdsn» уместо «привіт»? AURA то примети и исправи одмах после размака. За macOS и Windows.</p>
+    <div class="cta">
+      <a class="btn light" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip"><span data-t="dlMac">Преузми за Mac</span></a>
+      <a class="btn ghost" href="https://apps.microsoft.com/detail/9PP3MK8CFCJK" target="_blank" rel="noopener">⊞ <span data-t="dlWin">За Windows</span></a>
+    </div>
+    <p class="arm">exe: <a href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-x64.exe">x64</a> · <a href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-arm64.exe">ARM64</a> · <a href="https://github.com/klbk/aura-switcher-app/issues/5" target="_blank" rel="noopener">Linux? 👍</a></p>
+    <div class="phone"><p class="pnote" data-t="phoneNote">AURA је апликација за рачунар (Mac и Windows). Пошаљите линк себи и отворите га на рачунару.</p><button class="btn light sendlink" data-t="phoneBtn">Пошаљи линк себи</button><p class="purl">klbk.github.io/aura-switcher</p></div>
+    <div class="window" aria-hidden="true">
+      <div class="menubar"><div class="dots"><i></i><i></i><i></i></div><span class="chip fixed" id="demoChip">СР</span></div>
+      <div class="screen"><div id="demoText"><span class="right" dir="auto">хвала</span>&nbsp;<span class="caret"></span></div><div id="demoStatus">Исправљено после размака</div></div>
+    </div>
+  </div>
+</header>
+
+<section><div class="wrap">
+  <h2 class="h2" data-t="fTitle">Све што вам треба. Ништа сувишно</h2>
+  <div class="bento">
+    <div class="card c1 glow"><div class="vis"><span class="key b">ghbdsn</span><span class="arrow">→</span><span class="key y">привіт</span></div><h3 data-t="f1h">Аутокорекција</h3><p data-t="f1p">Реч откуцана у погрешном распореду после размака постаје исправна, а распоред се мења.</p></div>
+    <div class="card c2"><div class="vis"><span class="key">⇧ Shift</span><span class="key">⇧ Shift</span></div><h3 data-t="f2h">Двоструки Shift</h3><p data-t="f2p">Притисните <kbd>Shift</kbd> два пута — последња реч или означени текст претвара се у други распоред.</p></div>
+    <div class="card c3"><div><h3 data-t="f3h">Језик по апликацији</h3><p data-t="f3p">Terminal — увек EN, Telegram — УК. У изузетим апликацијама AURA ћути.</p></div>
+      <div class="menu" aria-hidden="true">
+        <div class="mi on" data-t="menabled">Укључено</div><div class="mi on" data-t="mauto">Аутокорекција</div><div class="mi on" data-t="msound">Звук</div><hr>
+        <div class="mi"><span data-t="mapp">Апликација: </span>Telegram</div><div class="mi" data-t="mexclude">Не радити у овој апликацији</div><div class="mi sub sel" data-t="mappLang">Језик за ову апликацију</div><hr>
+        <div class="mi sub" data-t="mexclusions">Изузеци</div><div class="mi sub" data-t="mbindings">Повезивање језика</div>
+      </div></div>
+    <div class="card c4"><h3 data-t="f4h">Приватно</h3><p data-t="f4p">Ништа не шаље на интернет. Све ради на вашем уређају.</p></div>
+    <div class="card c5"><h3 data-t="f6h">Лагано</h3><p data-t="f6p">Мање од 1 MB, не успорава куцање и не замрзава систем.</p></div>
+    <div class="card c6"><h3 data-t="f5h">Језици: 50</h3><p data-t="f5p">Сви распореди вашег система.</p><div class="langs"><span class="y">Українська</span><span class="b">English</span><span>Русский</span><span>Беларуская</span><span>Polski</span><span>Deutsch</span><span>Français</span><span>Español</span><span>Italiano</span><span>Português</span><span>Nederlands</span><span>Türkçe</span><span class="more">+38</span><span hidden="">Svenska</span><span hidden="">Čeština</span><span hidden="">Suomi</span><span hidden="">Română</span><span hidden="">Magyar</span><span hidden="">Ελληνικά</span><span hidden="">Български</span><span hidden="">עברית</span><span hidden="">العربية</span><span hidden="">Қазақша</span><span hidden="">Кыргызча</span><span hidden="">ქართული</span><span hidden="">Հայերեն</span><span hidden="">Azərbaycan</span><span hidden="">Српски</span><span hidden="">Македонски</span><span hidden="">Slovenčina</span><span hidden="">Hrvatski</span><span hidden="">Slovenščina</span><span hidden="">Lietuvių</span><span hidden="">Latviešu</span><span hidden="">Eesti</span><span hidden="">हिन्दी</span><span hidden="">한국어</span><span hidden="">简体中文</span><span hidden="">Dansk</span><span hidden="">Norsk</span><span hidden="">Íslenska</span><span hidden="">Shqip</span><span hidden="">فارسی</span><span hidden="">Tiếng Việt</span><span hidden="">Тоҷикӣ</span><span hidden="">Монгол</span><span hidden="">Татарча</span><span hidden="">Oʻzbek</span><span hidden="">Gaeilge</span><span hidden="">Malti</span><span hidden="">Cymraeg</span></div></div></div>
+  </div>
+</section>
+
+<section><div class="wrap">
+  <h2 class="h2" data-t="iTitle">Спремно за минут</h2>
+  <div class="steps">
+    <div class="card"><h3 data-t="s1h">Преузмите</h3><p data-t="s1p">Распакујте архиву. На Mac-у превуците AURA у „Applications“, на Windows-у само покрените AURA.exe.</p></div>
+    <div class="card"><h3 data-t="s2h">Дозволите</h3><p data-t="s2p">На Mac-у: Системска подешавања → Приватност и безбедност → Приступачност, Input Monitoring → AURA.</p></div>
+    <div class="card"><h3 data-t="s3h">Куцајте</h3><p data-t="s3p">Код језика се појављује у траци менија (Mac) или у области обавештења (Windows). Остало ради AURA.</p></div>
+  </div>
+  <h2 class="h2 safeh" data-t="safeH">Да ли је безбедно?</h2>
+  <div class="safe">
+    <details><summary data-t="safe1h">Отворен код</summary><p data-t="safe1p">Сав код је на <a href="https://github.com/klbk/aura-switcher-app" target="_blank" rel="noopener">GitHub</a>: свако може да провери шта програм ради.</p></details>
+    <details><summary data-t="safe2h">Зашто је потребан приступ тастатури</summary><p data-t="safe2p">Да види откуцану реч и исправи је. Текст се не чува и не шаље нигде, програму није потребан интернет.</p></details>
+    <details><summary data-t="safe3h">Упозорење при првом покретању је нормално</summary><p data-t="safe3p">Бета још нема плаћени потпис компанија Apple и Microsoft. Mac: „Done“ → Системска подешавања → Приватност и безбедност → „Open Anyway“. Windows: „More info“ → „Run anyway“.</p></details>
+  </div>
+  <div class="final">
+    <h2 data-t="ctaH">Пробајте AURA данас</h2><p data-t="ctaP">Бесплатна бета за macOS и Windows.</p>
+    <div class="phone"><p class="pnote" data-t="phoneNote">AURA је апликација за рачунар (Mac и Windows). Пошаљите линк себи и отворите га на рачунару.</p><button class="btn light sendlink" data-t="phoneBtn">Пошаљи линк себи</button><p class="purl">klbk.github.io/aura-switcher</p></div>
+    <div class="cta"><a class="btn light" href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-mac.zip"><span data-t="dlMac">Преузми за Mac</span></a><a class="btn ghost" href="https://apps.microsoft.com/detail/9PP3MK8CFCJK" target="_blank" rel="noopener">⊞ <span data-t="dlWin">За Windows</span></a><a class="btn coffee" href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Подржите</span></a></div>
+    <p class="arm">exe: <a href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-x64.exe">x64</a> · <a href="https://github.com/klbk/aura-switcher/releases/latest/download/AURA-Switcher-windows-arm64.exe">ARM64</a> · <a href="https://github.com/klbk/aura-switcher-app/issues/5" target="_blank" rel="noopener">Linux? 👍</a></p>
+  </div>
+</div></section>
+
+<div class="wrap alt"><h2 data-t="altH">Бесплатна алтернатива за Punto Switcher</h2><p data-t="altP">Тражите замену за Punto Switcher, Caramba Switcher, Mahou или LayoutFox? AURA Switcher сам препознаје текст откуцан у погрешном распореду тастатуре и исправља га — бесплатно, отворени код, без реклама, ништа не шаље на интернет. Ради на macOS и Windows (језици: 50).</p></div>
+
+<footer><div class="wrap">
+  <div><span class="flag"></span><strong data-t="made">Направљено у Украјини</strong></div>
+  <div><span data-t="foot">AURA — мислите о тексту, а не о распореду тастатуре.</span> · <a href="https://donatello.to/aura-switcher" target="_blank" rel="noopener">☕ <span data-t="donate">Подржите</span></a> · <a href="mailto:auraswitcher@gmail.com">✉︎ <span data-t="contact">Пишите нам</span></a> · <a href="https://github.com/klbk/aura-switcher-app" target="_blank" rel="noopener">GitHub</a></div>
+</div></footer>
+<script src="../i18n-more.js"></script>
+<script src="../seo.js"></script>
+<script src="../shared.js"></script>
+
+
+</body></html>
