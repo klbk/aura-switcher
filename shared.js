@@ -204,6 +204,16 @@ const PHONE_NOTE = {"uk": "AURA — програма для комп'ютера 
   "ko": "AURA는 컴퓨터용 프로그램입니다(Mac, Windows). 링크를 나에게 보내고 컴퓨터에서 여세요.",
   "zh": "AURA 是电脑软件（Mac 和 Windows）。把链接发给自己，在电脑上打开。"};
 for (const k in PHONE_NOTE) if (T[k]) T[k].phoneNote = PHONE_NOTE[k];
+
+// hero: "free open-source alternative to Punto Switcher" (uk/ru/en); phones: heading + copy button ("" = hidden, not translated yet)
+const PUNTO = { uk: "Безкоштовна відкрита альтернатива Punto Switcher.", ru: "Бесплатная открытая альтернатива Punto Switcher.", en: "A free, open-source alternative to Punto Switcher." };
+const PHONE_H = { uk: ["Це програма для комп'ютера", "Копіювати посилання"], ru: ["Это программа для компьютера", "Скопировать ссылку"], en: ["This one is for your computer", "Copy link"],
+  pl: ["To program na komputer", "Kopiuj link"], de: ["Das ist für den Computer", "Link kopieren"], es: ["Esto es para el ordenador", "Copiar enlace"], fr: ["C'est pour ordinateur", "Copier le lien"],
+  it: ["Questo è per il computer", "Copia il link"], pt: ["Isto é para o computador", "Copiar link"], tr: ["Bu bilgisayar için", "Bağlantıyı kopyala"], nl: ["Dit is voor je computer", "Link kopiëren"], cs: ["Tohle je pro počítač", "Kopírovat odkaz"] };
+for (const k in T) {
+  if (PUNTO[k]) T[k].lead += " " + PUNTO[k];
+  [T[k].phoneH, T[k].copyBtn] = PHONE_H[k] || ["", "Copy link"];
+}
 // phone visitors (nothing to install there) + "Is it safe?" block:
 // [phoneBtn, phoneCopied, safeH, safe1h, safe1p, safe2h, safe2p, safe3h, safe3p]
 const GH = '<a href="https://github.com/klbk/aura-switcher-app" target="_blank" rel="noopener">GitHub</a>';
@@ -325,7 +335,7 @@ const MENU = {
 for (const k in T) { const e = MENU[k] || MENU.en; MENU_KEYS.forEach((key, i) => { if (T[k][key] === undefined) T[k][key] = e[i]; }); }
 if (typeof SEO !== "undefined") for (const k in SEO) if (T[k]) Object.assign(T[k], SEO[k]);  // seo.js: title, description, "alternative to…"
 // the language count in the texts ("21 languages") is the number of chips in the languages card
-const nLangs = document.querySelectorAll(".langs span[data-l]").length;
+const nLangs = document.querySelectorAll(".langs span[data-l]:not([data-l=zh])").length;  // languages with an autocorrect model (the site also has a chip for a language without one)
 if (nLangs) for (const k in T) for (const key of ["f5h", "altP"]) if (T[k][key]) T[k][key] = T[k][key].replace(/\b21\b/, nLangs);
 if (nLangs && T.uk.altP) T.uk.altP = T.uk.altP.replace(/ще 19\b/, "ще " + (nLangs - 2));  // "Ukrainian, English and N more"
 
@@ -413,12 +423,15 @@ if (/Windows/.test(navigator.userAgent)) {
 // phones and tablets: nothing to install there — offer to send the link to a computer instead of downloads
 if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)) {
   document.documentElement.classList.add("mobile");
+  const link = () => location.href.split("#")[0];
+  const count = t => { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: t, title: t, event: true }); };
+  const copy = async b => { try { await navigator.clipboard.writeText(link()); b.textContent = T[lang].phoneCopied; } catch { location.href = "mailto:?subject=AURA%20Switcher&body=" + encodeURIComponent(link()); } };
   document.querySelectorAll(".sendlink").forEach(b => b.onclick = async () => {
-    const url = location.href.split("#")[0];
-    if (window.goatcounter && goatcounter.count) goatcounter.count({ path: "send-link", title: "Send the link to myself", event: true });
-    if (navigator.share) { try { await navigator.share({ title: document.title, url }); } catch {} return; }
-    try { await navigator.clipboard.writeText(url); b.textContent = T[lang].phoneCopied; } catch {}
+    count("send-link");
+    if (navigator.share) { try { await navigator.share({ title: document.title, url: link() }); } catch {} return; }
+    location.href = "mailto:?subject=AURA%20Switcher&body=" + encodeURIComponent(link());  // no Web Share: write the link to yourself
   });
+  document.querySelectorAll(".copylink").forEach(b => b.onclick = () => { count("copy-link"); copy(b); });
 }
 setLang(lang);
 
