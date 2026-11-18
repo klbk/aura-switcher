@@ -1,13 +1,15 @@
 // The latest release, for the update page (/update/). Edit on every release: version + what's new.
 // Notes: Ukrainian and English; other languages show the English notes.
 const LATEST = {
-  version: "0.10.0",
+  version: "0.10.1",
   notes: {
-    uk: ["49 мов розпізнаються (нові: польська, сербська, словацька, литовська, казахська, грузинська, гінді та інші), меню й сайт 48 мовами.",
-         "Mac: macOS один раз попросить другий дозвіл — «Моніторинг вводу» (дозвольте; якщо запропонує перезапуск — погодьтесь). Зависань клавіатури після вилучення доступу більше немає. Enter більше не затримується.",
+    uk: ["Windows: після першого запуску з'являється підказка, де значок програми (він ховається за стрілкою ^ біля годинника).",
+         "Виправлено: перше слово не виправлялось після очищення поля (Ctrl/Cmd+A і Delete або Backspace до порожнього поля) — у програмах, які віддають системі текст поля.",
+         "Поправки в перекладах меню (ірландська, данська, таджицька, словенська, вірменська).",
          "Якщо у вас 0.9 або новіша — «Перевірити оновлення» → «Оновити»."],
-    en: ["49 languages are recognised (new: Polish, Serbian, Slovak, Lithuanian, Kazakh, Georgian, Hindi and more); menu and site in 48 languages.",
-         "Mac: macOS asks once for a second permission, «Input Monitoring» (allow it; if it offers to restart AURA, agree). The keyboard can no longer freeze after access is removed. Enter is no longer held.",
+    en: ["Windows: a hint appears after the first launch showing where the app's icon is (it hides behind the ^ arrow next to the clock).",
+         "Fixed: the first word was not corrected after clearing a field (Ctrl/Cmd+A then Delete, or Backspace to an empty field) in apps that expose the field text to the system.",
+         "Menu translation fixes (Irish, Danish, Tajik, Slovenian, Armenian).",
          "On 0.9 or newer: «Check for updates» → «Update»."],
   },
 };
