@@ -207,12 +207,15 @@ for (const k in PHONE_NOTE) if (T[k]) T[k].phoneNote = PHONE_NOTE[k];
 
 // hero: "free open-source alternative to Punto Switcher" (uk/ru/en); phones: heading + copy button ("" = hidden, not translated yet)
 const PUNTO = { uk: "Безкоштовна відкрита альтернатива Punto Switcher.", ru: "Бесплатная открытая альтернатива Punto Switcher.", en: "A free, open-source alternative to Punto Switcher." };
+const EXE_NOTE = { uk: "Без Store: exe", ru: "Без Store: exe", en: "Without the Store: exe" };  // other languages keep "exe:"
 const PHONE_H = { uk: ["Це програма для комп'ютера", "Копіювати посилання"], ru: ["Это программа для компьютера", "Скопировать ссылку"], en: ["This one is for your computer", "Copy link"],
   pl: ["To program na komputer", "Kopiuj link"], de: ["Das ist für den Computer", "Link kopieren"], es: ["Esto es para el ordenador", "Copiar enlace"], fr: ["C'est pour ordinateur", "Copier le lien"],
   it: ["Questo è per il computer", "Copia il link"], pt: ["Isto é para o computador", "Copiar link"], tr: ["Bu bilgisayar için", "Bağlantıyı kopyala"], nl: ["Dit is voor je computer", "Link kopiëren"], cs: ["Tohle je pro počítač", "Kopírovat odkaz"] };
 for (const k in T) {
   if (PUNTO[k]) T[k].lead += " " + PUNTO[k];
   [T[k].phoneH, T[k].copyBtn] = PHONE_H[k] || ["", "Copy link"];
+  T[k].dlWin += " · Microsoft Store";  // the Windows button leads to the Store page; "Microsoft Store" is not translated
+  T[k].exeNote = EXE_NOTE[k] || "exe:";
 }
 // phone visitors (nothing to install there) + "Is it safe?" block:
 // [phoneBtn, phoneCopied, safeH, safe1h, safe1p, safe2h, safe2p, safe3h, safe3p]
