@@ -1,15 +1,13 @@
 // The latest release, for the update page (/update/). Edit on every release: version + what's new.
 // Notes: Ukrainian and English; other languages show the English notes.
 const LATEST = {
-  version: "0.10.1",
+  version: "0.10.2",
   notes: {
-    uk: ["Windows: після першого запуску з'являється підказка, де значок програми (він ховається за стрілкою ^ біля годинника).",
-         "Виправлено: перше слово не виправлялось після очищення поля (Ctrl/Cmd+A і Delete або Backspace до порожнього поля) — у програмах, які віддають системі текст поля.",
-         "Поправки в перекладах меню (ірландська, данська, таджицька, словенська, вірменська).",
+    uk: ["Windows, версія з Microsoft Store: пункт меню «Перевірити оновлення…» тепер відкриває сторінку AURA в Store (там кнопка «Оновити»). Store сам оновлює програму, але інколи із затримкою.",
+         "Для решти — без змін: Mac і Windows (exe) працюють, як у 0.10.1.",
          "Якщо у вас 0.9 або новіша — «Перевірити оновлення» → «Оновити»."],
-    en: ["Windows: a hint appears after the first launch showing where the app's icon is (it hides behind the ^ arrow next to the clock).",
-         "Fixed: the first word was not corrected after clearing a field (Ctrl/Cmd+A then Delete, or Backspace to an empty field) in apps that expose the field text to the system.",
-         "Menu translation fixes (Irish, Danish, Tajik, Slovenian, Armenian).",
+    en: ["Windows, Microsoft Store version: the «Check for updates…» menu item now opens the AURA page in the Store (with the Update button). The Store updates the app itself, sometimes with a delay.",
+         "Nothing else changed: Mac and Windows (exe) work as in 0.10.1.",
          "On 0.9 or newer: «Check for updates» → «Update»."],
   },
 };
