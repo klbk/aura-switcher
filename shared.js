@@ -3,7 +3,7 @@
 const T = {
   uk: {
     name: "Українська", title: "AURA Switcher — розкладка виправляється сама",
-    badge: "Бета 0.10.2 · безкоштовно · без реєстрації",
+    badge: "Бета 0.11 · безкоштовно · без реєстрації",
     h1: "Пишіть.<br>Розкладку <span class=\"hl\">AURA</span> виправить сама",
     lead: "Набрали «ghbdsn» замість «привіт»? AURA помітить і виправить одразу після пробілу. Для macOS і Windows.",
     dlMac: "Завантажити для Mac", dlWin: "Для Windows",
@@ -27,7 +27,7 @@ const T = {
   },
   en: {
     name: "English", title: "AURA Switcher — your keyboard layout fixes itself",
-    badge: "Beta 0.10.2 · free · no sign-up",
+    badge: "Beta 0.11 · free · no sign-up",
     h1: "Just type.<br><span class=\"hl\">AURA</span> fixes the layout",
     lead: "Typed “ghbdsn” instead of “привіт”? AURA notices and fixes it right after Space. For macOS and Windows.",
     dlMac: "Download for Mac", dlWin: "For Windows",
@@ -51,7 +51,7 @@ const T = {
   },
   pl: {
     name: "Polski", title: "AURA Switcher — układ klawiatury poprawia się sam",
-    badge: "Beta 0.10.2 · za darmo · bez rejestracji",
+    badge: "Beta 0.11 · za darmo · bez rejestracji",
     h1: "Po prostu pisz.<br><span class=\"hl\">AURA</span> poprawi układ",
     lead: "Wpisałeś „ghbdsn” zamiast „привіт”? AURA to zauważy i poprawi zaraz po spacji. Dla macOS i Windows.",
     dlMac: "Pobierz na Maca", dlWin: "Na Windows",
@@ -75,7 +75,7 @@ const T = {
   },
   de: {
     name: "Deutsch", title: "AURA Switcher — das Tastaturlayout korrigiert sich selbst",
-    badge: "Beta 0.10.2 · kostenlos · ohne Anmeldung",
+    badge: "Beta 0.11 · kostenlos · ohne Anmeldung",
     h1: "Einfach tippen.<br><span class=\"hl\">AURA</span> korrigiert das Layout",
     lead: "„ghbdsn“ statt „привіт“ getippt? AURA bemerkt es und korrigiert es direkt nach der Leertaste. Für macOS und Windows.",
     dlMac: "Für Mac laden", dlWin: "Für Windows",
@@ -99,7 +99,7 @@ const T = {
   },
   es: {
     name: "Español", title: "AURA Switcher — la distribución del teclado se corrige sola",
-    badge: "Beta 0.10.2 · gratis · sin registro",
+    badge: "Beta 0.11 · gratis · sin registro",
     h1: "Solo escribe.<br><span class=\"hl\">AURA</span> corrige la distribución",
     lead: "¿Escribiste «ghbdsn» en lugar de «привіт»? AURA lo detecta y lo corrige justo después del espacio. Para macOS y Windows.",
     dlMac: "Descargar para Mac", dlWin: "Para Windows",
@@ -123,7 +123,7 @@ const T = {
   },
   fr: {
     name: "Français", title: "AURA Switcher — la disposition du clavier se corrige toute seule",
-    badge: "Bêta 0.10.2 · gratuit · sans inscription",
+    badge: "Bêta 0.11 · gratuit · sans inscription",
     h1: "Tapez, tout simplement.<br><span class=\"hl\">AURA</span> corrige la disposition",
     lead: "Vous avez tapé « ghbdsn » au lieu de « привіт » ? AURA le remarque et corrige juste après l’espace. Pour macOS et Windows.",
     dlMac: "Télécharger pour Mac", dlWin: "Pour Windows",
@@ -300,7 +300,7 @@ const EXTRA = {
   hi: ["लिंक ख़ुद को भेजें", "लिंक कॉपी हो गया",
        "क्या यह सुरक्षित है?", "ओपन सोर्स", `पूरा कोड ${GH} पर है — कोई भी जाँच सकता है कि प्रोग्राम क्या करता है।`,
        "कीबोर्ड एक्सेस क्यों चाहिए", "टाइप किया शब्द देखने और उसे ठीक करने के लिए। टेक्स्ट न सहेजा जाता है, न कहीं भेजा जाता है; प्रोग्राम को इंटरनेट की ज़रूरत नहीं।",
-       "पहली बार खोलने पर चेतावनी आना सामान्य है", "बीटा पर अभी Apple और Microsoft का सशुल्क हस्ताक्षर नहीं है। Mac: “Done” → System Settings → Privacy & Security → “Open Anyway”। Windows: “More info” → “Run anyway”।"],
+       "पहली बार खोलने पर चेतावनी आना सामान्य है", "बीटा संस्करण पर अभी Apple और Microsoft का सशुल्क डिजिटल हस्ताक्षर नहीं है। Mac: “हो गया” (Done) → सिस्टम सेटिंग्स (System Settings) → गोपनीयता और सुरक्षा (Privacy & Security) → “फिर भी खोलें” (Open Anyway)। Windows: “अधिक जानकारी” (More info) → “फिर भी चलाएँ” (Run anyway)।"],
   ko: ["나에게 링크 보내기", "링크를 복사했습니다",
        "안전한가요?", "오픈 소스", `모든 코드가 ${GH}에 있어 누구나 프로그램이 하는 일을 확인할 수 있습니다.`,
        "키보드 접근 권한이 필요한 이유", "입력한 단어를 보고 고치기 위해서입니다. 텍스트는 저장되거나 어디로도 전송되지 않으며 인터넷이 필요 없습니다.",
